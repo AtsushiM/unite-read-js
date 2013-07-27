@@ -1,6 +1,6 @@
 {
   "name": "unite-read-js",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "task to combine js files in the project that is using the read.js.",
   "keywords": [
     "gruntplugin"
