@@ -1,0 +1,13 @@
+{
+  "name": "unite-read-js",
+  "version": "0.0.1",
+  "description": "task to combine js files in the project that is using the read.js.",
+  "keywords": [
+    "gruntplugin"
+  ],
+  "author": "Atsushi Mizoue",
+  "license": "BSD",
+  "devDependencies": {
+    "grunt": "~0.4.1"
+  }
+}
