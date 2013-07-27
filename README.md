@@ -1,5 +1,6 @@
 # unite-read-js
 Read.jsを使用したプロジェクトのjsファイルを結合するGruntタスクです。
+[Read.js: https://github.com/AtsushiM/Read.js](https://github.com/AtsushiM/Read.js)
 
 ## install
 ```
