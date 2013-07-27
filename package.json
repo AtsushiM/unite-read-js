@@ -8,6 +8,7 @@
   "author": "Atsushi Mizoue",
   "license": "BSD",
   "devDependencies": {
-    "grunt": "~0.4.1"
+    "grunt": "~0.4.1",
+    "unite-read-js": "0.0.1~"
   }
 }
