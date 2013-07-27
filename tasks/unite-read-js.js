@@ -38,6 +38,8 @@ module.exports = function(grunt)
         var rootdir = data.rootdir,
             basehtml = data.basehtml,
             includeid = data.includeid,
+            pathtype = data.pathtype,
+            splitdir,
             i = 0,
             len = path.length,
             scripts = '';
@@ -46,17 +48,22 @@ module.exports = function(grunt)
             rootdir += '/';
         }
 
+        splitdir = rootdir;
+        if (pathtype === 'absolute') {
+            splitdir = splitdir.slice(0, splitdir.length - 1);
+        }
+
         if (!basehtml) {
             basehtml = rootdir + 'index.html';
         }
 
         if (!includeid) {
-            includeid = 'UNITE-READ-HTML';
+            includeid = 'UNITE-READ-JS';
         }
 
 
         for (; i < len; i++) {
-            scripts += makeScriptElement(rootdir, path[i]);
+            scripts += makeScriptElement(splitdir, path[i]);
         }
 
         scripts = '<!-- ' + includeid + ' -->\n' + scripts + '<!-- //' + includeid + ' -->';

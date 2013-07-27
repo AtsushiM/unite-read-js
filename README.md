@@ -18,16 +18,18 @@ module.exports = function(grunt) {
             app: {
                 rootdir: './htdocs/', // プロジェクトのwebのルート
                 basehtml: './htdocs/index.html', // 基準となるhtml (省略した場合、basedir + 'index.html')
-                includeid: 'UNITE-READ-HTML', // html上にタグが出力される箇所(省略可能)
+                includeid: 'UNITE-READ-JS', // html上にタグが出力される箇所(省略可能)
                 startjs: './htdocs/js/_src/main.js', // 実行の基準となるjs
+                pathtype: 'absolute', // 出力されるjsのパスのタイプ [relative|absolute] (省略した場合relative)
                 createjs: './htdocs/js/app.js', // 書き出されるjs
             },
             dev: {
                 // createjsを省略した場合、basehtmlのincludeidの箇所にscriptタグで書きだす
                 rootdir: './htdocs/', // プロジェクトのwebのルート
                 basehtml: './htdocs/index.html', // 基準となるhtml (省略した場合、basedir + 'index.html')
-                includeid: 'UNITE-READ-HTML', // html上にタグが出力される箇所(省略可能)
+                includeid: 'UNITE-READ-JS', // html上にタグが出力される箇所(省略可能)
                 startjs: './htdocs/js/_src/main.js', // 実行の基準となるjs
+                pathtype: 'relative' // 出力されるjsのパスのタイプ [relative|absolute] (省略した場合relative)
             }
         },
         watch: {
@@ -45,6 +47,6 @@ module.exports = function(grunt) {
 };
 ```
 ```html
-// unite-read-htmlの場合、includeidで指定したコメントの間にscriptタグを出力する
-<!-- UNITE-READ-HTML --><!-- //UNITE-READ-HTML -->
+// includeidで指定したコメントの間にscriptタグを出力する
+<!-- UNITE-READ-JS --><!-- //UNITE-READ-JS -->
 ```

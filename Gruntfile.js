@@ -7,6 +7,7 @@ module.exports = function(grunt) {
                 basehtml: './htdocs/index.html', // 基準となるhtml (省略した場合、basedir + 'index.html')
                 includeid: 'UNITE-READ-HTML', // html上にタグが出力される箇所(省略可能)
                 startjs: './htdocs/js/_src/main.js', // 実行の基準となるjs
+                pathtype: 'absolute', // 出力されるjsのパスのタイプ [relative|absolute] (省略した場合relative)
                 createjs: './htdocs/js/app.js', // 書き出されるjs
             },
             dev: {
@@ -15,6 +16,7 @@ module.exports = function(grunt) {
                 basehtml: './htdocs/index.html', // 基準となるhtml (省略した場合、basedir + 'index.html')
                 includeid: 'UNITE-READ-HTML', // html上にタグが出力される箇所(省略可能)
                 startjs: './htdocs/js/_src/main.js', // 実行の基準となるjs
+                pathtype: 'relative' // 出力されるjsのパスのタイプ [relative|absolute] (省略した場合relative)
             }
         },
         watch: {
