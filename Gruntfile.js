@@ -16,7 +16,7 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.loadTasks('tasks');
+    grunt.loadNpmTasks('unite-read-js');
 
     grunt.registerTask('default', ['unite-read-js']);
 };
