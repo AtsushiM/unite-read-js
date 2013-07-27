@@ -1,56 +1,25 @@
 module.exports = function(grunt)
 {
-    grunt.task.registerMultiTask('unite-read-html', 'Read.js Make script tags', function()
-    {
-        var path = getReadJsFiles(this.data),
-            scripts = '',
-            i = 0,
-            len = path.length,
-            includeid = this.data.includeid,
-            basedir = this.data.basedir,
-            target = this.data.target;
-
-        if (basedir[basedir.length - 1] !== '/') {
-            basedir += '/';
-        }
-
-        if (!target) {
-            target = basedir + 'index.html';
-        }
-
-        if (!includeid) {
-            includeid = 'UNITE-READ-HTML';
-        }
-
-
-        for (; i < len; i++) {
-            scripts += makeScriptElement(basedir, path[i]);
-        }
-
-        scripts = '<!-- ' + includeid + ' -->\n' + scripts + '<!-- //' + includeid + ' -->';
-
-        grunt.file.write(
-            target,
-            grunt.file.read(target).replace(
-                new RegExp('<!-- ' + includeid + ' -->[\\s\\S]*<!-- \/\/' + includeid + ' -->', 'm'),
-                scripts
-            )
-        );
-
-    });
-
-    function makeScriptElement(basedir, path) {
-        return '<script src="' + path.split(basedir)[1] + '"></script>\n';
-    }
-
     grunt.task.registerMultiTask('unite-read-js', 'Read.js Compile', function()
     {
         var path = getReadJsFiles(this.data);
 
+        if (!this.data.createjs) {
+            updateBaseHTML(path, this.data);
+        }
+        else {
+            uniteJSApp(path, this.data);
+        }
+    });
+
+    function uniteJSApp(path, data) {
         grunt.file.write(
-            this.data.target,
+            data.createjs,
             catJSFilesValue(path)
         );
+        updateBaseHTML([
+            data.createjs
+        ], data);
 
         function catJSFilesValue(path) {
             var i = 0,
@@ -63,20 +32,66 @@ module.exports = function(grunt)
 
             return ret;
         }
-    });
+    }
+
+    function updateBaseHTML(path, data) {
+        var rootdir = data.rootdir,
+            basehtml = data.basehtml,
+            includeid = data.includeid,
+            i = 0,
+            len = path.length,
+            scripts = '';
+
+        if (rootdir[rootdir.length - 1] !== '/') {
+            rootdir += '/';
+        }
+
+        if (!basehtml) {
+            basehtml = rootdir + 'index.html';
+        }
+
+        if (!includeid) {
+            includeid = 'UNITE-READ-HTML';
+        }
+
+
+        for (; i < len; i++) {
+            scripts += makeScriptElement(rootdir, path[i]);
+        }
+
+        scripts = '<!-- ' + includeid + ' -->\n' + scripts + '<!-- //' + includeid + ' -->';
+
+        grunt.file.write(
+            basehtml,
+            grunt.file.read(basehtml).replace(
+                new RegExp('<!-- ' + includeid + ' -->[\\s\\S]*<!-- \/\/' + includeid + ' -->', 'm'),
+                scripts
+            )
+        );
+    }
 
     function getReadJsFiles(data) {
         var result = '',
             target = data.target,
             startjs = data.startjs,
-            basedir = data.basedir,
+            rootdir = data.rootdir,
+            basehtml = data.basehtml,
+            relativedir,
             reg_readmethod = /(\n|=)\s*read\(.+?,\s*['"](.+?)['"]\)[,;]/,
             path = [],
             loaded_path = {};
 
-        if (basedir[basedir.length - 1] !== '/') {
-            basedir += '/';
+        if (rootdir[rootdir.length - 1] !== '/') {
+            rootdir += '/';
         }
+
+        if (!basehtml) {
+            basehtml = rootdir + 'index.html'
+        }
+
+        relativedir = basehtml.split('/');
+        relativedir.splice(relativedir.length - 1, 1);
+        relativedir = relativedir.join('/') + '/';
 
         checkReadLoop(startjs);
         path.push(startjs);
@@ -104,10 +119,17 @@ module.exports = function(grunt)
 
         function makePath(path) {
             if (path[0] === '/') {
-                path = path.slice(1);
+                path = rootdir + path.slice(1);
+            }
+            else {
+                path = relativedir + path;
             }
 
-            return basedir + path + '.js';
+            return path + '.js';
         }
+    }
+
+    function makeScriptElement(rootdir, path) {
+        return '<script src="' + path.split(rootdir)[1] + '"></script>\n';
     }
 };
