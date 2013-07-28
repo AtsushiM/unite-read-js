@@ -84,7 +84,7 @@ module.exports = function(grunt)
             rootdir = data.rootdir,
             basehtml = data.basehtml,
             relativedir,
-            reg_readmethod = /(\n|=)\s*read\(.+?,\s*['"](.+?)['"]\)[,;]/,
+            reg_readmethod = /(\n|=|,|;|:|\(|&|\|)\s*read\(.+?,\s*['"](.+?)['"]\)/,
             path = [],
             loaded_path = {};
 
@@ -109,6 +109,8 @@ module.exports = function(grunt)
             var filevalue = grunt.file.read(jspath),
                 result,
                 temp;
+
+            filevalue = '\n' + filevalue;
 
             while (result = filevalue.match(reg_readmethod)) {
                 temp = makePath(result[2]);
