@@ -1,11 +1,15 @@
 // Test2
 read.ns('ns.Test2', function() {
-    document.write('exe: test2.<br/ >');
+    document.body.appendChild(
+        document.createElement('p')
+    ).innerHTML = 'exe: test2.';
 });
 
 // Test3
 read.ns('ns.Test3', function() {
-    document.write('exe: test3.<br/ >');
+    document.body.appendChild(
+        document.createElement('p')
+    ).innerHTML = 'exe: test3.';
 });
 
 // Test1
@@ -14,7 +18,9 @@ read('ns.Test3', 'js/_src/Test3');
 
 
 read.ns('ns.Test1', function() {
-    document.write('exe: test1.<br/ >');
+    document.body.appendChild(
+        document.createElement('p')
+    ).innerHTML = 'exe: test1.';
 
     new Test2;
     new ns.Test3;

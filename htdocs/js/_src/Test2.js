@@ -1,4 +1,6 @@
 // Test2
 read.ns('ns.Test2', function() {
-    document.write('exe: test2.<br/ >');
+    document.body.appendChild(
+        document.createElement('p')
+    ).innerHTML = 'exe: test2.';
 });
