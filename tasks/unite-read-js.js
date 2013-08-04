@@ -103,7 +103,6 @@ module.exports = function(grunt)
         relativedir = relativedir.join('/') + '/';
 
         checkReadLoop(startjs);
-        path.push(startjs);
 
         return path;
 
@@ -118,14 +117,14 @@ module.exports = function(grunt)
                 temp = makePath(result[2]);
 
                 if (!loaded_path[temp]) {
-                    loaded_path[temp] = true;
                     checkReadLoop(temp);
-
-                    path.push(temp);
                 }
 
                 filevalue = filevalue.slice(result.index + result[0].length);
             }
+
+            path.push(jspath);
+            loaded_path[jspath] = true;
         }
 
         function makePath(path) {
