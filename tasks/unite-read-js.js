@@ -30,7 +30,7 @@ module.exports = function(grunt)
                 ret += grunt.file.read(path[i]) + '\n';
             }
 
-            ret = ret.replace(/(\n|=|,|;|:|\(|&|\|)\s*read\((.+?),\s*['"].+?['"]\)/g, '$1read($2)');
+            ret = ret.replace(/(\n|=|,|;|:|\(|&|\|)([ \t]*)read\((.+?),\s*['"].+?['"]\)/g, '$1$2read($3)');
 
             return ret;
         }
