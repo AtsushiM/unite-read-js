@@ -13,8 +13,7 @@ read.ns('ns.Test3', function() {
 });
 
 // Test1
-var Test2 = read('ns.Test2', 'js/_src/Test2');
-read('ns.Test3', 'js/_src/Test3');
+var Test2 =read('ns.Test2');read('ns.Test3');read('ns.Test3');
 
 
 read.ns('ns.Test1', function() {
@@ -29,8 +28,8 @@ read.ns('ns.Test1', function() {
 // main
 read.ns('ns');
 
-var Test1 = read('ns.Test1', 'js/_src/Test1');
-var test2 = read('ns.Test2', 'js/_src/Test2');
+var Test1 =read('ns.Test1');
+var test2 =read('ns.Test2');
 
 new Test1();
 
